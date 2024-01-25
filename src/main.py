@@ -18,10 +18,10 @@ if __name__ == "__main__":
     sql_query = """
         SELECT DISTINCT 
             "partSKU"
-        FROM buyparts24_prod_dwh.raw_mongo.bp24_listings
+        FROM <<INHOUSE LISTING TABLE>>
         WHERE "partSKU" NOT IN (SELECT DISTINCT 
                                     "oem_sku_code"
-                                FROM BUYPARTS24_PROD_DWH.ADS.CUST_DM_OEM_AM_MATCHES)
+                                FROM <<REFERENCE TABLE TO BE UPDATED>>)
         AND "isDeleted" in (NULL, FALSE)
         AND "hide" in (NULL, FALSE)
     """
@@ -35,8 +35,8 @@ if __name__ == "__main__":
     if len(oem_skus) > 0:
         # extract IAM via API call for the difference skus
         if extract_data_from_api(oem_list=oem_skus, config_path=CONFIG_FILE):
-            loader.main_load(name= 'CUST_DATA_OEM_NO_MATCHES_V2', input_location=os.path.join(project_root,'data','no_responses'), staging_location=os.path.join(project_root,'data','upload_stage'))
-            loader.main_load(name= 'cust_data_oem_matches_v2', input_location=os.path.join(project_root,'data','oem_matches'), staging_location=os.path.join(project_root,'data','upload_stage'))
+            loader.main_load(name= 'NO_MATCH', input_location=os.path.join(project_root,'data','no_responses'), staging_location=os.path.join(project_root,'data','upload_stage'))
+            loader.main_load(name= 'MATCH', input_location=os.path.join(project_root,'data','oem_matches'), staging_location=os.path.join(project_root,'data','upload_stage'))
         else:
             main_logger.error("Issue with the data extract. Please check logs")
     else:
