@@ -5,6 +5,7 @@ import configparser
 import pandas as pd
 import snowflake.connector
 from urllib.parse import quote
+import openpyxl
 
 # Set up logging
 logger = logging.getLogger(__name__)

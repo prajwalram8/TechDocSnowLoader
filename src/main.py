@@ -42,3 +42,8 @@ if __name__ == "__main__":
     else:
         main_logger.info("No New OEM SKUs detected")
 
+    gasp_master = True
+
+    if gasp_master:
+        loader.main_load(name='cust_data_oem_gasp_matches_v2', input_location=os.path.join(project_root,'data','gasp_master'), staging_location=os.path.join(project_root,'data','upload_stage'))
+
