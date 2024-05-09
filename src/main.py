@@ -1,12 +1,13 @@
 import os
 from src import project_root
 from src.slowder import DataLoader
-from src.logger_config import main_logger
+from src.logger_config import setup_logging
 from src.techdocpull_mt import extract_data_from_api
 
 CONFIG_FOLDER = os.path.join(project_root,'config')
 CONFIG_FILE = os.path.join(CONFIG_FOLDER,'config.ini')
 
+main_logger = setup_logging("main")
 
 if __name__ == "__main__":
     main_logger.info("Starting application")
@@ -42,8 +43,8 @@ if __name__ == "__main__":
     else:
         main_logger.info("No New OEM SKUs detected")
 
-    gasp_master = True
+    # gasp_master = True
 
-    if gasp_master:
-        loader.main_load(name='cust_data_oem_gasp_matches_v2', input_location=os.path.join(project_root,'data','gasp_master'), staging_location=os.path.join(project_root,'data','upload_stage'))
+    # if gasp_master:
+    #     loader.main_load(name='cust_data_oem_gasp_matches_v2', input_location=os.path.join(project_root,'data','gasp_master'), staging_location=os.path.join(project_root,'data','upload_stage'))
 
