@@ -140,3 +140,5 @@ Thumbs.db
 
 # Main.py
 main.py
+
+app.log.*

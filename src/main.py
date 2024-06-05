@@ -35,16 +35,18 @@ if __name__ == "__main__":
     # If new oems exists enter the work flow
     if len(oem_skus) > 0:
         # extract IAM via API call for the difference skus
+        main_logger.info(f"{oem_skus} new SKUs detected")
         if extract_data_from_api(oem_list=oem_skus, config_path=CONFIG_FILE):
-            loader.main_load(name= 'CUST_DATA_OEM_NO_MATCHES_V2', input_location=os.path.join(project_root,'data','no_responses'), staging_location=os.path.join(project_root,'data','upload_stage'))
-            loader.main_load(name= 'cust_data_oem_matches_v2', input_location=os.path.join(project_root,'data','oem_matches'), staging_location=os.path.join(project_root,'data','upload_stage'))
+            main_logger.info("Extrated dataset")
+            loader.main_load(name= 'CUST_DATA_OEM_NO_MATCHES', input_location=os.path.join(project_root,'data','no_responses'), staging_location=os.path.join(project_root,'data','upload_stage'))
+            loader.main_load(name= 'CUST_DATA_OEM_MATCHES', input_location=os.path.join(project_root,'data','oem_matches'), staging_location=os.path.join(project_root,'data','upload_stage'))
         else:
             main_logger.error("Issue with the data extract. Please check logs")
     else:
         main_logger.info("No New OEM SKUs detected")
 
-    # gasp_master = True
+    # # gasp_master = True
 
-    # if gasp_master:
-    #     loader.main_load(name='cust_data_oem_gasp_matches_v2', input_location=os.path.join(project_root,'data','gasp_master'), staging_location=os.path.join(project_root,'data','upload_stage'))
+    # # if gasp_master:
+    # #     loader.main_load(name='cust_data_oem_gasp_matches_v2', input_location=os.path.join(project_root,'data','gasp_master'), staging_location=os.path.join(project_root,'data','upload_stage'))
 

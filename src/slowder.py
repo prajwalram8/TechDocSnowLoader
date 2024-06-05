@@ -4,8 +4,8 @@ import logging
 import configparser
 import pandas as pd
 import snowflake.connector
-from urllib.parse import quote
-import openpyxl
+# from urllib.parse import quote
+# import openpyxl
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -188,34 +188,6 @@ class DataLoader:
             # No CSV files were found
             return False
 
-    def log_column_mismatch(self, df, file_name):
-        """
-        Log the column names if they match with the reference DataFrame.
-        If there is a mismatch, log the details of the CSV file.
-        """
-        # Get the column names of the DataFrame and the reference DataFrame
-        if self.column_context == None:
-            self.column_context = set(df.columns)
-            return None
-        else:
-            df_columns = set(df.columns)
-            reference_columns = self.column_context
-
-            if df_columns == reference_columns:
-                logger.info("Column names match the reference DataFrame")
-            else:
-                extra_columns = df_columns - reference_columns
-                missing_columns = reference_columns - df_columns
-
-                if extra_columns:
-                    reference_columns = reference_columns.update(extra_columns)
-                    logger.warning(f"Extra columns in file {file_name}: {', '.join(extra_columns)}")
-                if missing_columns:
-                    logger.warning(f"Missing columns in file {file_name}: {', '.join(missing_columns)}")
-                
-                self.column_context = reference_columns
-            return None
-
     def process_flat_files(self, input_location, staging_location):
         """
         Process Excel files: read the files, clean the data, and save it as CSV files
@@ -231,12 +203,13 @@ class DataLoader:
                     df = pd.read_csv(file_path)
             except Exception as e:
                 logger.error(f"Error while reading the files in the input folder: {e}")
-            # Log Column mismatch if any
-            self.log_column_mismatch(df, file_name)
+
             # Clean the DataFrame
             df = self.clean(df)
+
             # Add Column for file identifier
             df['File Name'] = file_name
+
             # Save the DataFrame as a CSV file
             stage_file_path = os.path.join(staging_location, f'{os.path.splitext(file_name)[0]}.csv')
             self.local_stage_df(df, stage_file_path)
