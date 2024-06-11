@@ -22,7 +22,7 @@ def create_payload() -> dict:
             "page": 1,
             "includeAll": 'false',
             "imcludeImages": 'false',
-            "includeGenericArticles": 'false',
+            "includeGenericArticles": 'true',
             "includeOEMNumbers": 'true'
         }
     }
@@ -32,12 +32,28 @@ params = {'api_key': config['techdoc']['api_key']}
 payload = create_payload()
 
 def json_to_df(response_json):
-    return pd.json_normalize(
-        data = response_json, 
-        record_path='oemNumbers', 
-        meta=['articleNumber', 'mfrId', 'mfrName', 'searchQuery'],
-        meta_prefix='afterMarket'
-        )
+    # Flattening the genericArticles
+    df_generic_articles = pd.json_normalize(
+        response_json,
+        record_path='genericArticles',
+        meta=['dataSupplierId', 'articleNumber', 'mfrId', 'mfrName', 'searchQuery'],
+        record_prefix='genericArticle_',
+        errors='ignore'
+    )
+
+    # Flattening the oemNumbers
+    df_oem_numbers = pd.json_normalize(
+        response_json,
+        record_path='oemNumbers',
+        meta=['dataSupplierId', 'articleNumber', 'mfrId', 'mfrName', 'searchQuery'],
+        record_prefix='oem_',
+        errors='ignore'
+    )
+
+    # Merging the two dataframes on common columns
+    df_merged = pd.merge(df_generic_articles, df_oem_numbers, on=['dataSupplierId', 'articleNumber', 'mfrId', 'mfrName', 'searchQuery'], how='outer')
+
+    return df_merged
 
 
 if __name__ == "__main__":
@@ -47,8 +63,9 @@ if __name__ == "__main__":
     response_list = []
     counter = 0
     for oem in [
-         '04466-06100', '04465-33480', '04466-33230', 
-         '04465-33240', '04466-33090'
+        'MR510056' 
+        #  '04465-33480', '04466-33230', 
+        #  '04465-33240', '04466-33090'
          ]:
         page = 1
         oemQuery = oem
@@ -72,9 +89,11 @@ if __name__ == "__main__":
             except requests.RequestException as e:
                     print(f"Request failed: {e}")
                     break
-
+            
+    
     print(response_list[0])
-    # response_list = map(lambda x: json_to_df(x), response_list)
-    # response_df = pd.concat(response_list).reset_index(drop=True)
-    # response_df.drop(['referenceTypeKey', 'referenceTypeDescription'], axis=1)
-    # response_df.to_csv('sample.csv')
+    response_list = map(lambda x: json_to_df(x), response_list)
+    response_df = pd.concat(response_list).reset_index(drop=True)
+    # # response_df.drop(['referenceTypeKey', 'referenceTypeDescription'], axis=1)
+    response_df.to_csv('sample.csv')
+

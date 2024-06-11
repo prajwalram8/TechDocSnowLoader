@@ -1,0 +1,9 @@
+,genericArticle_genericArticleId,genericArticle_genericArticleDescription,genericArticle_legacyArticleId,genericArticle_linkageTargetTypes,dataSupplierId,articleNumber,mfrId,mfrName,searchQuery,oem_articleNumber,oem_mfrId,oem_mfrName,oem_matchesSearchQuery,oem_referenceTypeKey,oem_referenceTypeDescription
+0,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,1093A039,77,MITSUBISHI,False,1,Interchangeable
+1,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,1093A040,77,MITSUBISHI,False,1,Interchangeable
+2,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,1093A105,77,MITSUBISHI,False,1,Interchangeable
+3,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,MN103369,77,MITSUBISHI,False,1,Interchangeable
+4,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,MR491298,77,MITSUBISHI,False,1,Interchangeable
+5,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,MR510056,77,MITSUBISHI,True,1,Interchangeable
+6,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,MR510127,77,MITSUBISHI,False,1,Interchangeable
+7,247,"Mounting, engine",155571770,"['V', 'O', 'M']",4674,MM-V75,3863,FEBEST,MR510056,MR510128,77,MITSUBISHI,False,1,Interchangeable
