@@ -142,3 +142,5 @@ Thumbs.db
 main.py
 
 app.log.*
+
+adhoc_extract/custom_data_extract/

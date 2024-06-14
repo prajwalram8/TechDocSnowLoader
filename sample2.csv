@@ -1,5 +1,0 @@
-,genericArticle_genericArticleId,genericArticle_genericArticleDescription,genericArticle_legacyArticleId,genericArticle_linkageTargetTypes,dataSupplierId,articleNumber,mfrId,mfrName,searchQuery,oem_articleNumber,oem_mfrId,oem_mfrName,oem_matchesSearchQuery
-0,686,Spark Plug,292454,"['V', 'O', 'M']",30,0 242 145 515,530,BOSCH,0242145515,12 12 0 037 580,16,BMW,False
-1,686,Spark Plug,292454,"['V', 'O', 'M']",30,0 242 145 515,530,BOSCH,0242145515,12 12 0 037 581,16,BMW,False
-2,686,Spark Plug,292454,"['V', 'O', 'M']",30,0 242 145 515,530,BOSCH,0242145515,12 12 0 037 582,16,BMW,False
-3,686,Spark Plug,292454,"['V', 'O', 'M']",30,0 242 145 515,530,BOSCH,0242145515,12 12 0 037 580,705,ROLLS-ROYCE,False

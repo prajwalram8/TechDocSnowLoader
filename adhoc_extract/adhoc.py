@@ -2,6 +2,7 @@ import os
 import requests
 import pandas as pd
 from src import project_root
+import json
 from configparser import ConfigParser
 
 CONFIG_FOLDER = os.path.join(project_root,'config')
@@ -20,10 +21,10 @@ def create_payload() -> dict:
             "lang": "en",
             "perPage": 100,
             "page": 1,
-            "includeAll": 'false',
+            "includeAll": 'true',
             "imcludeImages": 'false',
-            "includeGenericArticles": 'true',
-            "includeOEMNumbers": 'true'
+            "includeGenericArticles": 'false',
+            "includeOEMNumbers": 'false'
         }
     }
 
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     response_list = []
     counter = 0
     for oem in [
-        'MR510056' 
+        'A2128300318' 
         #  '04465-33480', '04466-33230', 
         #  '04465-33240', '04466-33090'
          ]:
@@ -90,10 +91,10 @@ if __name__ == "__main__":
                     print(f"Request failed: {e}")
                     break
             
-    
     print(response_list[0])
-    response_list = map(lambda x: json_to_df(x), response_list)
-    response_df = pd.concat(response_list).reset_index(drop=True)
-    # # response_df.drop(['referenceTypeKey', 'referenceTypeDescription'], axis=1)
-    response_df.to_csv('sample.csv')
+    # with open('sample_out.json', 'w') as f:
+    #     json.dump(response_list[0], f, ensure_ascii=False)
+    # response_list = map(lambda x: json_to_df(x), response_list)
+    # response_df = pd.concat(response_list).reset_index(drop=True)
+    # response_df.to_csv('sample2.csv')
 
